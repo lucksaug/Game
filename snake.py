@@ -1,7 +1,11 @@
 import pygame, random
 from pygame.locals import *
+import emoji
 
 clock = pygame.time.Clock()
+colision = False
+W = 700
+H = 600 
 UP = 0
 DOWN = 1
 RIGHT = 2
@@ -9,7 +13,7 @@ LEFT = 3
 
 pygame.init()
 screen = pygame.display.set_mode((700,600))
-pygame.display.set_caption('Snake')
+pygame.display.set_caption(emoji.emojize(':snake: Snake :snake:'))
 
 snake = [(200,200),(210,200),(220,200)]
 snake_skin = pygame.Surface((10,10)) #pygame.Surface((h,w)) coloca algo na tela com um tamanho h, w
@@ -17,12 +21,12 @@ snake_skin.fill((255,255,255)) # deixa a cobra branca fill((R,G,B))
 
 apple = pygame.Surface((10,10))
 apple.fill((255,0,0))
-apple_pos = (random.randrange(0,590,10),random.randrange(0,590,10))
+apple_pos = (random.randrange(0,H - 10,10),random.randrange(0,W - 10,10))
 
 my_direction = LEFT
 
 while True:
-    clock.tick(20)
+    clock.tick(10)
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -46,7 +50,6 @@ while True:
         snake[0] = (snake[0][0] + 10, snake[0][1])
     if my_direction == LEFT:
         snake[0] = (snake[0][0] - 10, snake[0][1])
-
 
     for i in range (len(snake) - 1, 0, -1):
         snake[i] = (snake[i - 1][0], snake[i - 1][1])
